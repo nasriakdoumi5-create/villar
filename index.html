@@ -184,7 +184,12 @@ footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wr
   .grid{grid-template-columns:1fr}
   .auto-in{padding:24px 20px}
 }
-@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+.flag{display:inline-block; margin-right:5px; font-size:12px}
+@keyframes tr{0%{opacity:0; transform:translateY(-4px)}100%{opacity:1; transform:none}}
+[data-i18n].xl{animation:tr .38s ease}
+.toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(80px); background:var(--ink); color:var(--bg); padding:11px 20px; border-radius:26px; font-size:13.5px; font-weight:600; box-shadow:0 8px 28px rgba(0,0,0,.25); z-index:60; opacity:0; transition:transform .3s cubic-bezier(.2,.8,.3,1), opacity .3s}
+.toast.show{transform:translateX(-50%) translateY(0); opacity:1}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important; animation:none !important} }
 :focus-visible{outline:2.5px solid var(--red); outline-offset:2px; border-radius:3px}
 </style>
 
@@ -426,12 +431,12 @@ footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wr
 <script>
 const T = {
  pt:{rib1:"Proposta de design",rib2:"Maquete para Hermanos Villar · preços e dados de exemplo",idioma:"Idioma",
-  n1:"Início",n2:"Empresa",n3:"Maquinaria",n4:"Ocasião",n5:"Vídeos",n6:"Contacto",
+  n1:"Início",n2:"A Empresa",n3:"Máquinas",n4:"Ocasião",n5:"Vídeos",n6:"Contactos",
   eyebrow:"Stock disponível · Atualizado hoje",h1:"Maquinaria de ocasião",
   sub:"Tratores e alfaias revistos na nossa oficina, com garantia e financiamento. Todo o stock aqui — sem sair do nosso site.",
   cntlbl:"equipamentos disponíveis · 3 novos esta semana",seal:"Revisto na nossa oficina",
-  filtrar:"Filtrar",f0:"Tudo",f1:"Tratores",f2:"Trituração",f3:"Pulverização",f4:"Carregadoras",f5:"Municipal",sort:"Preço",
-  c1:"Tratores",c2:"Tratores / Carregadoras",c3:"Trituração / Corte",c4:"Pulverização",c5:"Municipal / Inverno",
+  filtrar:"Filtrar por",f0:"Tudo",f1:"Tratores",f2:"Destroçadores",f3:"Pulverização",f4:"Carregadoras",f5:"Autarquias",sort:"Preço",
+  c1:"Tratores",c2:"Tratores / Carregadoras",c3:"Destroçadores / Limpeza",c4:"Pulverização",c5:"Autarquias / Inverno",
   d1:"4 cilindros · Cabina · Tração dupla · Revisto na oficina",d2:"Pá frontal Yagmur W250 · Tração dupla · Ideal quinta",
   d3:"Martelos · Deslocamento hidráulico · Rolo traseiro",d4:"Suspenso · Barras hidráulicas 12 m · Pouco uso",
   d5:"Lâmina orientável 2,8 m · Engate frontal · Para câmaras",
@@ -480,13 +485,27 @@ const ES = {};
 document.querySelectorAll('[data-i18n]').forEach(el=>{ if(!(el.dataset.i18n in ES)) ES[el.dataset.i18n] = el.textContent; });
 T.es = ES;
 
+const FLAG = {es:'🇪🇸', pt:'🇵🇹', en:'🇬🇧'};
+const LNAME = {es:'Español', pt:'Português', en:'English'};
+const toast = document.createElement('div');
+toast.className = 'toast';
+document.body.appendChild(toast);
+let tmr;
+
 function setLang(l){
   document.documentElement.lang = l;
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const v = T[l][el.dataset.i18n];
-    if(v) el.textContent = v;
+    if(v && el.textContent !== v){
+      el.textContent = v;
+      el.classList.remove('xl'); void el.offsetWidth; el.classList.add('xl');
+    }
   });
   document.querySelectorAll('.lang').forEach(b=>b.classList.toggle('on', b.dataset.lang===l));
+  toast.textContent = FLAG[l] + '  ' + LNAME[l];
+  toast.classList.add('show');
+  clearTimeout(tmr);
+  tmr = setTimeout(()=> toast.classList.remove('show'), 1700);
 }
 document.querySelectorAll('.lang').forEach(b=> b.addEventListener('click', ()=> setLang(b.dataset.lang)) );
 
@@ -506,6 +525,8 @@ function applyFilter(f){
   moreCard.style.display = (f==='all') ? '' : 'none';
   emptyEl.classList.toggle('show', n===0);
   cntEl.textContent = (f==='all') ? 14 : n;
+  cntEl.classList.remove('xl'); void cntEl.offsetWidth; cntEl.classList.add('xl');
+  cntEl.style.color = (f==='all') ? '' : 'var(--red)';
 }
 document.querySelectorAll('.chip[data-filter]').forEach(c=>{
   c.addEventListener('click', ()=>{
