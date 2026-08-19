@@ -1,0 +1,349 @@
+<title>Cuando dicen que sí</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap">
+
+<style>
+:root{
+  --bg:#E9ECF0; --surface:#FFFFFF; --surface-2:#F4F6F8; --surface-3:#DFE4EA;
+  --ink:#0F151C; --ink-2:#48545F; --ink-3:#7B8794;
+  --line:#D3DAE1; --line-2:#BCC5CE;
+  --go:#0F6B3D; --go-bg:#DDF2E5; --go-line:#8CCBA8;
+  --amber:#B26A00; --amber-bg:#FDF1DC; --amber-line:#EBC183;
+  --red:#B32318; --red-bg:#FCE9E7; --red-line:#F0B3AC;
+  --blue:#1D4E89; --blue-bg:#E1ECF8;
+  --shadow:0 1px 2px rgba(15,21,28,.05), 0 4px 14px rgba(15,21,28,.06);
+  --shadow-lg:0 2px 5px rgba(15,21,28,.08), 0 14px 34px rgba(15,21,28,.11);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C1116; --surface:#151C24; --surface-2:#1B242D; --surface-3:#222D38;
+    --ink:#E7ECF1; --ink-2:#A2AEBA; --ink-3:#717E8B;
+    --line:#25313C; --line-2:#334252;
+    --go:#4FBE84; --go-bg:#0D2C1B; --go-line:#245C3B;
+    --amber:#E0A03E; --amber-bg:#2E220C; --amber-line:#5C4718;
+    --red:#E8756A; --red-bg:#31160F; --red-line:#5E2A20;
+    --blue:#6BA6E8; --blue-bg:#12253A;
+    --shadow:0 1px 2px rgba(0,0,0,.45), 0 4px 14px rgba(0,0,0,.35);
+    --shadow-lg:0 2px 5px rgba(0,0,0,.5), 0 14px 34px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C1116; --surface:#151C24; --surface-2:#1B242D; --surface-3:#222D38;
+  --ink:#E7ECF1; --ink-2:#A2AEBA; --ink-3:#717E8B;
+  --line:#25313C; --line-2:#334252;
+  --go:#4FBE84; --go-bg:#0D2C1B; --go-line:#245C3B;
+  --amber:#E0A03E; --amber-bg:#2E220C; --amber-line:#5C4718;
+  --red:#E8756A; --red-bg:#31160F; --red-line:#5E2A20;
+  --blue:#6BA6E8; --blue-bg:#12253A;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 4px 14px rgba(0,0,0,.35);
+  --shadow-lg:0 2px 5px rgba(0,0,0,.5), 0 14px 34px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:"Source Sans 3",system-ui,-apple-system,sans-serif; font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:"Archivo",system-ui,sans-serif; margin:0; text-wrap:balance; line-height:1.15}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+a{color:inherit}
+button{font-family:inherit; cursor:pointer}
+.wrap{max-width:860px; margin:0 auto; padding:0 18px}
+
+.top{background:linear-gradient(160deg, #0F6B3D, #0A4D2C); color:#fff; padding:30px 0 28px}
+:root[data-theme="dark"] .top, :root:not([data-theme="light"]) .top{}
+.top h1{font-size:clamp(27px,5.6vw,38px); font-weight:800; letter-spacing:-.02em; color:#fff}
+.top .sub{color:#B9E2CD; font-size:15px; margin-top:7px}
+.steps-bar{display:flex; gap:6px; margin-top:18px; flex-wrap:wrap}
+.sb{font-family:"JetBrains Mono",monospace; font-size:11px; padding:5px 10px; border-radius:6px; background:rgba(255,255,255,.13); color:#DFF3E6; border:1px solid rgba(255,255,255,.16)}
+
+.step{background:var(--surface); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); margin:20px 0; overflow:hidden}
+.shead{padding:17px 20px; display:flex; align-items:center; gap:14px; border-bottom:1px solid var(--line); background:var(--surface-2)}
+.snum{width:34px; height:34px; border-radius:10px; background:var(--go); color:#fff; font-family:"Archivo",sans-serif; font-weight:800; font-size:16px; display:grid; place-items:center; flex:none}
+.shead h2{font-size:20px; font-weight:700; letter-spacing:-.01em}
+.shead .when{font-size:12.5px; color:var(--ink-3); margin-top:1px}
+.sbody{padding:19px 20px}
+
+.lbl{font-family:"JetBrains Mono",monospace; font-size:10.5px; font-weight:500; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:8px; display:flex; align-items:center; justify-content:space-between; gap:10px}
+.copy{font-family:"Source Sans 3",sans-serif; font-size:12px; font-weight:600; text-transform:none; letter-spacing:0; padding:4px 11px; border-radius:6px; border:1px solid var(--line-2); background:var(--surface-2); color:var(--ink-2); transition:.15s}
+.copy:hover{border-color:var(--ink-3); color:var(--ink)}
+.copy.ok{background:var(--go-bg); border-color:var(--go-line); color:var(--go)}
+.msg{background:var(--surface-2); border:1px solid var(--line); border-radius:9px; padding:14px 15px; font-size:14.5px; line-height:1.62; white-space:pre-wrap; margin-bottom:15px}
+.msg:last-child{margin-bottom:0}
+.ar{font-size:14px; color:var(--ink-2); border-right:3px solid var(--go-line); padding:2px 13px 2px 0; margin:-6px 0 16px; direction:rtl; text-align:right}
+
+.q{display:flex; gap:12px; padding:12px 0; border-bottom:1px dashed var(--line)}
+.q:last-of-type{border-bottom:none}
+.q .qn{font-family:"JetBrains Mono",monospace; font-size:13px; font-weight:700; color:var(--go); flex:none; padding-top:2px}
+.q .es{font-size:15px; font-weight:600; margin-bottom:2px}
+.q .why{font-size:13.5px; color:var(--ink-2)}
+
+.calc{background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:18px}
+.cgrp{margin-bottom:18px}
+.cgrp:last-of-type{margin-bottom:0}
+.cgrp h4{font-size:13px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-3); margin-bottom:9px}
+.opts{display:grid; gap:8px}
+.opt{display:flex; align-items:center; gap:11px; padding:11px 13px; border:1.5px solid var(--line-2); border-radius:10px; background:var(--surface); cursor:pointer; transition:.15s}
+.opt:hover{border-color:var(--go-line)}
+.opt.on{border-color:var(--go); background:var(--go-bg)}
+.opt input{width:18px; height:18px; accent-color:var(--go); flex:none; margin:0}
+.opt .t{flex:1; min-width:0}
+.opt .t b{display:block; font-size:14.5px; font-weight:600}
+.opt .t span{font-size:12.5px; color:var(--ink-2)}
+.opt .p{font-family:"JetBrains Mono",monospace; font-size:13px; font-weight:600; color:var(--ink-2); white-space:nowrap}
+
+.result{margin-top:20px; background:var(--go); color:#fff; border-radius:13px; padding:22px; text-align:center}
+.result .rl{font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; opacity:.82; font-weight:600}
+.result .rp{font-family:"Archivo",sans-serif; font-size:clamp(30px,7vw,44px); font-weight:800; letter-spacing:-.02em; margin:6px 0 2px}
+.result .rm{font-size:14.5px; opacity:.9}
+.result .rsub{margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.22); font-size:14px}
+.result .rsub b{font-size:17px; font-family:"JetBrains Mono",monospace}
+
+.warn{border-radius:10px; padding:14px 16px; margin:16px 0; font-size:14.5px}
+.warn.a{background:var(--amber-bg); border:1px solid var(--amber-line); border-left:4px solid var(--amber)}
+.warn.r{background:var(--red-bg); border:1px solid var(--red-line); border-left:4px solid var(--red)}
+.warn.g{background:var(--go-bg); border:1px solid var(--go-line); border-left:4px solid var(--go)}
+.warn.b{background:var(--blue-bg); border:1px solid transparent; border-left:4px solid var(--blue)}
+.warn h4{font-size:15.5px; margin-bottom:4px; display:flex; align-items:center; gap:7px}
+.warn.a h4{color:var(--amber)} .warn.r h4{color:var(--red)} .warn.g h4{color:var(--go)} .warn.b h4{color:var(--blue)}
+.warn p{margin:0; color:var(--ink-2)}
+.warn p+p{margin-top:7px}
+.warn b{color:var(--ink)}
+
+ul.ck{list-style:none; padding:0; margin:0}
+ul.ck li{display:flex; gap:11px; padding:9px 0; border-bottom:1px dashed var(--line); font-size:15px}
+ul.ck li:last-child{border-bottom:none}
+ul.ck li::before{content:"☐"; font-size:17px; color:var(--ink-3); flex:none; line-height:1.2}
+ul.ck li b{font-weight:600}
+ul.ck li span{display:block; font-size:13px; color:var(--ink-2); margin-top:1px}
+
+footer{text-align:center; padding:34px 18px 48px; color:var(--ink-3); font-size:13px}
+.toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(80px); background:var(--ink); color:var(--bg); padding:11px 20px; border-radius:24px; font-size:14px; font-weight:600; box-shadow:var(--shadow-lg); opacity:0; transition:transform .28s cubic-bezier(.2,.8,.3,1), opacity .28s; z-index:50}
+.toast.show{transform:translateX(-50%) translateY(0); opacity:1}
+
+@media (max-width:560px){ .sbody{padding:15px} .shead{padding:14px 15px} }
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+:focus-visible{outline:2.5px solid var(--go); outline-offset:2px; border-radius:4px}
+</style>
+
+<div class="top"><div class="wrap">
+  <h1>Cuando dicen que sí</h1>
+  <div class="sub">من لحظة الموافقة إلى الموقع المسلَّم — سبع خطوات</div>
+  <div class="steps-bar">
+    <span class="sb">1 الردّ</span><span class="sb">2 المكالمة</span><span class="sb">3 السعر</span>
+    <span class="sb">4 العرض</span><span class="sb">5 الاتفاق</span><span class="sb">6 القانوني</span><span class="sb">7 التسليم</span>
+  </div>
+</div></div>
+
+<div class="wrap">
+
+  <div class="step">
+    <div class="shead"><span class="snum">1</span><div><h2>الردّ الفوري</h2><div class="when">خلال ساعة من موافقته — السرعة تصنع الزخم</div></div></div>
+    <div class="sbody">
+      <div class="lbl">ردّك <button class="copy" data-copy="r1">نسخ</button></div>
+      <div class="msg" id="r1">¡Genial, me alegro de que te guste! 😊
+
+¿Te viene bien que hablemos 10 minutos por teléfono? Así te pregunto cuatro cosas del negocio y te preparo una propuesta con precio cerrado.
+
+¿Qué día y hora te va mejor?</div>
+      <div class="ar">رائع، يسعدني أنه أعجبك! هل يناسبك أن نتحدّث 10 دقائق هاتفياً؟ أسألك أربعة أمور عن نشاطكم وأجهّز لك عرضاً بسعر نهائي. أي يوم وساعة تناسبك؟</div>
+      <div class="warn r"><h4>🚫 لا تسعّر هنا</h4><p>لو سأل عن السعر بالرسالة، أعده للمكالمة: <b>"Depende de lo que necesitéis — en 10 minutos te lo aclaro y te paso precio cerrado."</b><br>سعر بلا فهم = إمّا تخسر المال، أو تخسر العميل.</p></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="shead"><span class="snum">2</span><div><h2>المكالمة — اسأل واستمع</h2><div class="when">10 دقائق · تكلّم 30% واستمع 70%</div></div></div>
+    <div class="sbody">
+      <div class="q"><span class="qn">Q1</span><div><div class="es">¿Cómo os llegan los clientes ahora?</div><div class="why">تكشف قناتهم الحالية — وأين الفجوة التي تملؤها.</div></div></div>
+      <div class="q"><span class="qn">Q2</span><div><div class="es">¿Qué es lo que más tiempo os quita cada día?</div><div class="why">⭐ <b>أهم سؤال.</b> جوابه = ما تبيعه فعلاً (أتمتة، نموذج، حجز مواعيد).</div></div></div>
+      <div class="q"><span class="qn">Q3</span><div><div class="es">¿Os pregunta la gente si tenéis web?</div><div class="why">لو نعم → يعترف بالحاجة بنفسه، لا تحتاج إقناعاً.</div></div></div>
+      <div class="q"><span class="qn">Q4</span><div><div class="es">¿Habéis trabajado antes con alguien en esto?</div><div class="why">تكشف تجربة سيّئة سابقة (فرصتك) أو مزوّداً حالياً (احذر).</div></div></div>
+      <div class="q"><span class="qn">Q5</span><div><div class="es">Si esto funcionara, ¿qué te gustaría que pasara en 6 meses?</div><div class="why">تكشف طموحه — وتقيس نجاحك لاحقاً بكلامه هو.</div></div></div>
+      <div class="warn g"><h4>✅ أنهِ المكالمة هكذا دائماً</h4><p><b>"Perfecto, con esto ya lo tengo claro. Te preparo una propuesta con precio cerrado y te la paso mañana."</b><br><span style="font-size:13.5px">(ممتاز، الصورة واضحة الآن. أجهّز لك عرضاً بسعر نهائي وأرسله غداً.)</span></p><p><b>لا تسعّر شفهياً أبداً</b> — الرقم المكتوب يُحترم، والمنطوق يُساوَم.</p></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="shead"><span class="snum">3</span><div><h2>احسب السعر</h2><div class="when">بعد المكالمة · اختر ما سمعته</div></div></div>
+    <div class="sbody">
+      <div class="calc">
+        <div class="cgrp">
+          <h4>الأساس (اختر واحداً)</h4>
+          <div class="opts" id="base">
+            <label class="opt"><input type="radio" name="b" value="450" data-lo="350" data-hi="600" checked><span class="t"><b>Landing · صفحة واحدة</b><span>معلومات + اتصال. لورشة أو حرفيّ.</span></span><span class="p">350–600 €</span></label>
+            <label class="opt"><input type="radio" name="b" value="900" data-lo="600" data-hi="1200"><span class="t"><b>Web completa · 4–6 صفحات</b><span>خدمات + عن الشركة + اتصال. للعيادات.</span></span><span class="p">600–1.200 €</span></label>
+            <label class="opt"><input type="radio" name="b" value="1800" data-lo="1200" data-hi="2500"><span class="t"><b>كتالوج أو متجر</b><span>منتجات متغيّرة + بحث وفلاتر. مثل Villar.</span></span><span class="p">1.200–2.500 €</span></label>
+          </div>
+        </div>
+        <div class="cgrp">
+          <h4>إضافات (اختر ما طلبه)</h4>
+          <div class="opts" id="ex">
+            <label class="opt"><input type="checkbox" data-lo="150" data-hi="300"><span class="t"><b>الشعار والهوية</b><span>⭐ الأسهل ربحاً — أغلبهم بلا شعار</span></span><span class="p">+150–300 €</span></label>
+            <label class="opt"><input type="checkbox" data-lo="100" data-hi="200"><span class="t"><b>كتابة النصوص</b><span>لو لم يكن لديهم نصوص جاهزة</span></span><span class="p">+100–200 €</span></label>
+            <label class="opt"><input type="checkbox" data-lo="150" data-hi="250"><span class="t"><b>لغة إضافية</b><span>برتغالي/إنجليزي — قوي قرب الحدود</span></span><span class="p">+150–250 €</span></label>
+            <label class="opt"><input type="checkbox" data-lo="300" data-hi="600"><span class="t"><b>أتمتة النشر</b><span>نشر تلقائي على إنستغرام وفيسبوك</span></span><span class="p">+300–600 €</span></label>
+            <label class="opt"><input type="checkbox" data-lo="120" data-hi="250"><span class="t"><b>حجز مواعيد / نظام حجوزات</b><span>للعيادات والخدمات</span></span><span class="p">+120–250 €</span></label>
+            <label class="opt"><input type="checkbox" data-lo="100" data-hi="200"><span class="t"><b>تحسين محرّكات البحث (SEO محلي)</b><span>Google Business + كلمات المنطقة</span></span><span class="p">+100–200 €</span></label>
+          </div>
+        </div>
+        <div class="cgrp">
+          <h4>وضعك الحالي</h4>
+          <div class="opts" id="disc">
+            <label class="opt on"><input type="radio" name="d" value="0.75" checked><span class="t"><b>عميلي الأول أو الثاني</b><span>خصم مقابل شهادة وإذن عرض العمل</span></span><span class="p">−25%</span></label>
+            <label class="opt"><input type="radio" name="d" value="0.9"><span class="t"><b>عندي 3–5 مراجع</b><span>خصم بسيط</span></span><span class="p">−10%</span></label>
+            <label class="opt"><input type="radio" name="d" value="1"><span class="t"><b>عندي معرض أعمال قوي</b><span>السعر الكامل</span></span><span class="p">السعر الكامل</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="rl">السعر المقترح</div>
+        <div class="rp mono" id="out">—</div>
+        <div class="rm">+ IVA · نصفه مقدّماً</div>
+        <div class="rsub">والصيانة الشهرية: <b id="mout">—</b> <span style="opacity:.85">/شهر</span><br>
+          <span style="font-size:12.5px; opacity:.85">⭐ هنا دخلك الحقيقي — لا تنسَ عرضها أبداً</span></div>
+      </div>
+
+      <div class="warn a"><h4>⚠️ لا تنزل تحت هذا</h4><p>احسب ساعاتك: المشروع الأول يأخذ <b>20–30 ساعة</b> (ستتعلّم أثناءه). عند 450 € فهذا ~18 €/ساعة — مقبول لأول مرة، <b>لكن لا تقبل أقلّ.</b></p><p><b>السعر الرخيص جداً يضرّك مرّتين:</b> يرهقك، ويجعله يشكّ في جودتك.</p></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="shead"><span class="snum">4</span><div><h2>أرسل العرض (Presupuesto)</h2><div class="when">خلال 24 ساعة من المكالمة</div></div></div>
+    <div class="sbody">
+      <div class="lbl">القالب — بدّل ما بين الأقواس <button class="copy" data-copy="r2">نسخ</button></div>
+      <div class="msg" id="r2">PRESUPUESTO — Página web [NEGOCIO]
+Nasri Akdoumi · Ponteareas · [هاتفك]
+Fecha: [التاريخ] · Válido 30 días
+
+QUÉ INCLUYE
+• Diseño y desarrollo de la web ([العدد] páginas)
+• Adaptada a móvil, tablet y ordenador
+• Formulario de contacto conectado a vuestro WhatsApp
+• Textos legales (aviso legal y privacidad)
+• Alta en Google para que os encuentren en la zona
+• 2 rondas de cambios incluidas
+• Formación de 15 minutos al entregar
+
+QUÉ NECESITO DE VOSOTROS
+• Logotipo y fotos (si los tenéis)
+• Textos o las ideas principales
+• Datos fiscales para el aviso legal
+
+PRECIO
+Desarrollo completo .............. [السعر] € + IVA
+  50% al empezar ................. [النصف] €
+  50% al entregar ................ [النصف] €
+
+Dominio (a vuestro nombre) ....... ~15 €/año
+Alojamiento ...................... incluido
+
+PLAZO
+[العدد] semanas desde la confirmación
+
+MANTENIMIENTO (opcional)
+[المبلغ] €/mes — cambios, copias de seguridad,
+actualizaciones y soporte por WhatsApp.
+
+IMPORTANTE
+El dominio y la web quedan a vuestro nombre desde
+el primer día. Son vuestros.</div>
+      <div class="warn b"><h4>💡 لماذا هذا القالب يعمل</h4><p><b>"QUÉ NECESITO DE VOSOTROS"</b> — يجعله شريكاً لا مشترياً، ويحميك من التأخير بسببه.<br>
+      <b>"2 rondas de cambios"</b> — يمنع التعديلات اللانهائية التي تقتل المشاريع الأولى.<br>
+      <b>"a vuestro nombre"</b> — يزيل أكبر مخاوفه، ويميّزك عمّن يحتجزون المواقع.</p></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="shead"><span class="snum">5</span><div><h2>الاتفاق والدفعة</h2><div class="when">قبل أن تكتب سطراً واحداً</div></div></div>
+    <div class="sbody">
+      <div class="lbl">رسالة التأكيد (صالحة قانونياً في إسبانيا) <button class="copy" data-copy="r3">نسخ</button></div>
+      <div class="msg" id="r3">Perfecto, entonces confirmamos:
+
+✅ Web de [العدد] páginas para [NEGOCIO]
+✅ Precio: [السعر] € + IVA
+✅ 50% ahora ([النصف] €), 50% al entregar
+✅ Plazo: [العدد] semanas desde hoy
+✅ 2 rondas de cambios incluidas
+✅ Dominio y web a vuestro nombre
+
+Te paso el número de cuenta y empezamos 😊</div>
+      <div class="warn r"><h4>🚫 ثلاثة أخطاء تقتل المشروع الأول</h4>
+        <p><b>1) البدء بلا دفعة.</b> 50% مقدّماً — دائماً، بلا استثناء. من يرفض الدفع المقدّم غالباً يرفض الدفع النهائي.</p>
+        <p><b>2) تعديلات بلا حدود.</b> بعد الجولتين: <b>"Cualquier cambio adicional lo presupuesto aparte."</b></p>
+        <p><b>3) موعد متفائل.</b> قل ثلاثة أسابيع وسلّم في اثنين — <b>لا العكس أبداً.</b></p></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="shead"><span class="snum">6</span><div><h2>الجانب القانوني</h2><div class="when">إلزامي — لا تتجاوزه</div></div></div>
+    <div class="sbody">
+      <div class="warn a"><h4>⚖️ كل موقع تجاري إسباني يحتاج</h4>
+        <p><b>Aviso legal</b> — قانون LSSI-CE · <b>Política de privacidad</b> — RGPD<br>
+        <b>Política de cookies</b> — فقط لو استعملت تتبّعاً أو تحليلات.</p></div>
+      <div class="warn g"><h4>✅ الحلّ الأبسط — تجنّب المشكلة</h4>
+        <p><b>لا تضع Google Analytics، واجعل النماذج تفتح واتساب</b> بدل تخزين البيانات.<br>
+        النتيجة: لا كوكيز → <b>لا بانر</b> · لا بيانات مخزّنة → <b>لا مسؤولية RGPD تقريباً</b> · وموقع أسرع.<br>
+        <b>وهذه نقطة بيع:</b> "Sin banner de cookies, más rápida y sin líos legales."</p></div>
+      <div class="warn r"><h4>🦷 تحذير خاص بالعيادات</h4>
+        <p>نموذج يسأل عن سبب الزيارة (تقويم، ألم...) = <b>بيانات صحّية</b> = أعلى مستوى حماية في RGPD.<br>
+        <b>الحلّ:</b> اجعل الزرّ يفتح واتساب مباشرةً — لا تخزّن شيئاً على الموقع.</p></div>
+      <div class="warn b"><h4>🛠️ أداة رسمية مجانية</h4>
+        <p>الوكالة الإسبانية لحماية البيانات (AEPD) تقدّم <b>"Facilita RGPD"</b> مجاناً — تولّد لك المستندات القانونية.<br>
+        <span style="font-size:13.5px">لست محامياً — لأي عميل يتعامل ببيانات حسّاسة (صحّة، قُصّر)، <b>أخبره أن يراجعها مع مستشاره.</b> الصدق هنا يحميك.</span></p></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="shead"><span class="snum">7</span><div><h2>التسليم</h2><div class="when">قائمة لا تتخطّاها</div></div></div>
+    <div class="sbody">
+      <ul class="ck">
+        <li><div><b>النطاق باسم العميل</b><span>ببطاقته وبريده — لا باسمك أبداً</span></div></li>
+        <li><div><b>الاستضافة على Cloudflare Pages</b><span>مجانية · سريعة · HTTPS مضمّن</span></div></li>
+        <li><div><b>اختبار على جوال حقيقي</b><span>افتحه بجوالك وجوال شخص آخر قبل التسليم</span></div></li>
+        <li><div><b>كل الأزرار تعمل</b><span>الهاتف يتّصل · واتساب يفتح · الخريطة تفتح</span></div></li>
+        <li><div><b>الصفحات القانونية موجودة</b><span>Aviso legal + Privacidad</span></div></li>
+        <li><div><b>Google Business Profile</b><span>محدَّث وفيه رابط الموقع الجديد</span></div></li>
+        <li><div><b>فيديو تدريب 15 دقيقة</b><span>سجّله بجوالك — يوفّر عليك عشرات المكالمات</span></div></li>
+        <li><div><b>تسليم كل بيانات الدخول</b><span>مكتوبة، بوضوح، وباسمه</span></div></li>
+        <li><div><b>الدفعة الثانية</b><span>عند التسليم، قبل النشر النهائي</span></div></li>
+        <li><div><b>اطلب الشهادة والإذن</b><span>⭐ "¿Te importa si enseño el trabajo a otros negocios?"</span></div></li>
+        <li><div><b>اعرض الصيانة الشهرية</b><span>⭐ هنا دخلك المتكرّر — لا تنسَ</span></div></li>
+      </ul>
+      <div class="warn g" style="margin-top:18px"><h4>🏆 وأهمّ سطرين في القائمة</h4>
+        <p><b>الشهادة</b> تحوّل عميلاً واحداً إلى عشرة — رسالتك القادمة تبدأ بـ <b>"Acabo de hacer la web de [X], aquí la tienes"</b> ← ثقة فورية.</p>
+        <p><b>والصيانة</b> تحوّل دفعة واحدة إلى دخل شهري. <b>عشرة عملاء × 80 € = 800 €/شهر</b> بجهد قليل. هذا هو الهدف الحقيقي.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>دليل شخصي · Nasri Akdoumi · Ponteareas<br><span style="font-size:12px">افتحه على جوالك — أزرار النسخ تعمل</span></footer>
+<div class="toast" id="toast">تم النسخ ✓</div>
+
+<script>
+const toast=document.getElementById('toast'); let tmr;
+function say(t){ toast.textContent=t; toast.classList.add('show'); clearTimeout(tmr); tmr=setTimeout(()=>toast.classList.remove('show'),1600); }
+document.querySelectorAll('.copy').forEach(b=>{
+  b.addEventListener('click', async ()=>{
+    const txt=document.getElementById(b.dataset.copy).textContent;
+    try{ await navigator.clipboard.writeText(txt); }
+    catch(e){ const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(_){} document.body.removeChild(ta); }
+    const o=b.textContent; b.textContent='تم ✓'; b.classList.add('ok'); say('تم النسخ ✓');
+    setTimeout(()=>{ b.textContent=o; b.classList.remove('ok'); },1800);
+  });
+});
+
+function fmt(n){ return Math.round(n/10)*10; }
+function calc(){
+  const base=document.querySelector('#base input:checked');
+  let lo=+base.dataset.lo, hi=+base.dataset.hi;
+  document.querySelectorAll('#ex input:checked').forEach(c=>{ lo+=+c.dataset.lo; hi+=+c.dataset.hi; });
+  const d=+document.querySelector('#disc input:checked').value;
+  lo=fmt(lo*d); hi=fmt(hi*d);
+  document.getElementById('out').textContent = lo.toLocaleString('es-ES')+' – '+hi.toLocaleString('es-ES')+' €';
+  const mlo=Math.max(50, fmt(lo*0.09)), mhi=Math.max(80, fmt(hi*0.11));
+  document.getElementById('mout').textContent = mlo+' – '+mhi+' €';
+  document.querySelectorAll('.opt').forEach(o=>{ const i=o.querySelector('input'); o.classList.toggle('on', i.checked); });
+}
+document.querySelectorAll('.calc input').forEach(i=> i.addEventListener('change', calc));
+calc();
+</script>
