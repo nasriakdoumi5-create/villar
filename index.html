@@ -126,6 +126,8 @@ nav a.on{color:var(--ink); font-weight:600; border-bottom-color:var(--red)}
 .pub .lbl{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3)}
 .dot{font-family:"IBM Plex Mono",monospace; font-size:10px; color:var(--ink-2); background:var(--surface); border:1px solid var(--line); padding:2px 7px; border-radius:20px}
 .dot::before{content:"✓ "; color:var(--green); font-weight:700}
+.dot.draft{color:var(--ink-3)}
+.dot.draft::before{content:"📋 "; color:var(--amber)}
 
 .more{background:var(--surface-2); border:1.5px dashed var(--line-2); border-radius:9px; display:grid; place-items:center; text-align:center; padding:34px 22px; min-height:260px}
 .more .n{font-family:"Barlow Condensed",sans-serif; font-size:52px; font-weight:700; line-height:1; color:var(--red)}
@@ -246,7 +248,7 @@ footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wr
         <button class="cta">Solicitar info</button>
       </div>
       <div class="pub"><span class="lbl">Publicado en</span>
-        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot">Milanuncios</span></div>
+        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot draft">Milanuncios: texto listo</span></div>
     </article>
 
     <article class="card">
@@ -269,7 +271,7 @@ footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wr
         <button class="cta">Solicitar info</button>
       </div>
       <div class="pub"><span class="lbl">Publicado en</span>
-        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot">Milanuncios</span></div>
+        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot draft">Milanuncios: texto listo</span></div>
     </article>
 
     <article class="card">
@@ -292,7 +294,7 @@ footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wr
         <button class="cta">Solicitar info</button>
       </div>
       <div class="pub"><span class="lbl">Publicado en</span>
-        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot">Milanuncios</span></div>
+        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot draft">Milanuncios: texto listo</span></div>
     </article>
 
     <article class="card">
@@ -315,7 +317,7 @@ footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wr
         <button class="cta">Solicitar info</button>
       </div>
       <div class="pub"><span class="lbl">Publicado en</span>
-        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot">Milanuncios</span></div>
+        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot draft">Milanuncios: texto listo</span></div>
     </article>
 
     <article class="card">
@@ -338,7 +340,7 @@ footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wr
         <button class="cta">Solicitar info</button>
       </div>
       <div class="pub"><span class="lbl">Publicado en</span>
-        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot">Milanuncios</span></div>
+        <span class="dot">Web</span><span class="dot">Instagram</span><span class="dot">Facebook</span><span class="dot draft">Milanuncios: texto listo</span></div>
     </article>
 
     <div class="more">
@@ -355,15 +357,15 @@ footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wr
   <section class="auto">
     <img class="seal" src="data:image/png;base64,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" alt="">
     <div class="auto-in">
-    <h2>Una máquina, cuatro escaparates</h2>
-    <p class="lead">Cada equipo se sube una sola vez. El sistema redacta la ficha, la traduce y la publica en todos los canales — y el cliente contacta directamente con vosotros, no con un portal lleno de competencia.</p>
+    <h2>Se sube una vez. Sale en todas partes.</h2>
+    <p class="lead">Cada equipo se carga una sola vez desde el móvil. El sistema redacta la ficha, la traduce y la publica solo en web, Instagram y Facebook. Para Milanuncios deja el texto y las fotos preparados para pegar. Y las consultas llegan directamente a vosotros, no a un portal lleno de competencia.</p>
     <div class="steps">
       <div class="step"><div class="n">PASO 1</div><h3>Fotos + datos</h3>
         <p>Se envían las fotos y cuatro datos básicos desde el móvil, en el propio taller.</p></div>
       <div class="step"><div class="n">PASO 2</div><h3>Ficha automática</h3>
         <p>La descripción comercial se redacta sola y se traduce al portugués e inglés.</p></div>
       <div class="step"><div class="n">PASO 3</div><h3>Publicación</h3>
-        <p>Web, Instagram, Facebook y Milanuncios a la vez. Sin repetir el trabajo cuatro veces.</p></div>
+        <p>Web, Instagram y Facebook automático. Milanuncios: texto y fotos listos para pegar en 30 segundos.</p></div>
       <div class="step"><div class="n">PASO 4</div><h3>Contacto directo</h3>
         <p>Las consultas llegan a vuestro WhatsApp y correo, con la referencia de la máquina.</p></div>
     </div>
