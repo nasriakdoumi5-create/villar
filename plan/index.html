@@ -1,0 +1,321 @@
+<title>Plan de Envíos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap">
+
+<style>
+:root{
+  --bg:#E9ECF0; --surface:#FFFFFF; --surface-2:#F4F6F8; --surface-3:#DFE4EA;
+  --ink:#0F151C; --ink-2:#48545F; --ink-3:#7B8794;
+  --line:#D3DAE1; --line-2:#BCC5CE;
+  --amber:#B26A00; --amber-bg:#FDF1DC; --amber-line:#EBC183;
+  --green:#166B39; --green-bg:#DFF3E6; --green-line:#8FCBA6;
+  --blue:#1D4E89; --blue-bg:#E1ECF8;
+  --red:#B32318; --red-bg:#FCE9E7;
+  --shadow:0 1px 2px rgba(15,21,28,.05), 0 4px 14px rgba(15,21,28,.06);
+  --shadow-lg:0 2px 5px rgba(15,21,28,.08), 0 14px 34px rgba(15,21,28,.11);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C1116; --surface:#151C24; --surface-2:#1B242D; --surface-3:#222D38;
+    --ink:#E7ECF1; --ink-2:#A2AEBA; --ink-3:#717E8B;
+    --line:#25313C; --line-2:#334252;
+    --amber:#E0A03E; --amber-bg:#2E220C; --amber-line:#5C4718;
+    --green:#5CBE83; --green-bg:#0F2C1B; --green-line:#265C3B;
+    --blue:#6BA6E8; --blue-bg:#12253A;
+    --red:#E8756A; --red-bg:#31160F;
+    --shadow:0 1px 2px rgba(0,0,0,.45), 0 4px 14px rgba(0,0,0,.35);
+    --shadow-lg:0 2px 5px rgba(0,0,0,.5), 0 14px 34px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C1116; --surface:#151C24; --surface-2:#1B242D; --surface-3:#222D38;
+  --ink:#E7ECF1; --ink-2:#A2AEBA; --ink-3:#717E8B;
+  --line:#25313C; --line-2:#334252;
+  --amber:#E0A03E; --amber-bg:#2E220C; --amber-line:#5C4718;
+  --green:#5CBE83; --green-bg:#0F2C1B; --green-line:#265C3B;
+  --blue:#6BA6E8; --blue-bg:#12253A;
+  --red:#E8756A; --red-bg:#31160F;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 4px 14px rgba(0,0,0,.35);
+  --shadow-lg:0 2px 5px rgba(0,0,0,.5), 0 14px 34px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif; font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif; margin:0; text-wrap:balance; line-height:1.14}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+a{color:inherit}
+button{font-family:inherit; cursor:pointer}
+.wrap{max-width:840px; margin:0 auto; padding:0 18px}
+
+.top{background:var(--ink); color:var(--surface); padding:26px 0 24px}
+.top h1{font-size:clamp(26px,5.5vw,36px); font-weight:800; letter-spacing:-.02em; color:#fff}
+.top .sub{color:#A2AEBA; font-size:15px; margin-top:6px}
+.top .meta{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px}
+.pill{font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:500; letter-spacing:.05em; text-transform:uppercase; padding:5px 11px; border-radius:20px; background:rgba(255,255,255,.09); color:#C8D2DC; border:1px solid rgba(255,255,255,.13)}
+.pill.hot{background:rgba(224,160,62,.18); color:#E8B968; border-color:rgba(224,160,62,.35)}
+
+.alert{background:var(--amber-bg); border:1px solid var(--amber-line); border-left:4px solid var(--amber); border-radius:10px; padding:16px 18px; margin:24px 0}
+.alert h3{font-size:17px; font-weight:700; color:var(--amber); margin-bottom:5px; display:flex; align-items:center; gap:7px}
+.alert p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.alert b{color:var(--ink)}
+
+h2.sec{font-size:13px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin:34px 0 14px; display:flex; align-items:center; gap:10px}
+h2.sec::after{content:""; flex:1; height:1px; background:var(--line)}
+
+.card{background:var(--surface); border:1px solid var(--line); border-radius:13px; box-shadow:var(--shadow); margin-bottom:16px; overflow:hidden; transition:opacity .2s}
+.card.done{opacity:.5}
+.chead{padding:16px 18px; display:flex; align-items:flex-start; gap:13px; border-bottom:1px solid var(--line); background:var(--surface-2)}
+.ck{width:26px; height:26px; border-radius:8px; border:2px solid var(--line-2); background:var(--surface); flex:none; display:grid; place-items:center; margin-top:2px; transition:.15s; padding:0}
+.ck:hover{border-color:var(--green)}
+.ck.on{background:var(--green); border-color:var(--green)}
+.ck svg{width:14px; height:14px; stroke:#fff; fill:none; stroke-width:3; opacity:0}
+.ck.on svg{opacity:1}
+.ctitle{flex:1; min-width:0}
+.ctitle h3{font-size:19px; font-weight:700; letter-spacing:-.01em}
+.ctitle .tags{display:flex; gap:6px; flex-wrap:wrap; margin-top:6px}
+.tag{font-family:"JetBrains Mono",monospace; font-size:10px; font-weight:500; letter-spacing:.05em; text-transform:uppercase; padding:3px 8px; border-radius:5px; background:var(--surface-3); color:var(--ink-2)}
+.tag.g{background:var(--green-bg); color:var(--green)}
+.tag.b{background:var(--blue-bg); color:var(--blue)}
+.tag.r{background:var(--red-bg); color:var(--red)}
+.tag.a{background:var(--amber-bg); color:var(--amber)}
+.num{font-family:"Archivo",sans-serif; font-size:26px; font-weight:800; color:var(--ink-3); line-height:1; flex:none}
+
+.cbody{padding:16px 18px}
+.lbl{font-family:"JetBrains Mono",monospace; font-size:10.5px; font-weight:500; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:7px; display:flex; align-items:center; justify-content:space-between; gap:10px}
+.copy{font-family:"Source Sans 3",sans-serif; font-size:12px; font-weight:600; text-transform:none; letter-spacing:0; padding:4px 11px; border-radius:6px; border:1px solid var(--line-2); background:var(--surface-2); color:var(--ink-2); transition:.15s}
+.copy:hover{border-color:var(--ink-3); color:var(--ink)}
+.copy.ok{background:var(--green-bg); border-color:var(--green-line); color:var(--green)}
+.msg{background:var(--surface-2); border:1px solid var(--line); border-radius:9px; padding:14px 15px; font-size:14.5px; line-height:1.62; white-space:pre-wrap; color:var(--ink); margin-bottom:16px}
+.msg:last-child{margin-bottom:0}
+
+.acts{display:flex; gap:9px; flex-wrap:wrap; margin-top:4px}
+.act{font-size:14px; font-weight:600; padding:10px 16px; border-radius:9px; text-decoration:none; display:inline-flex; align-items:center; gap:7px; border:1px solid transparent; transition:.15s}
+.act svg{width:16px; height:16px}
+.act-wa{background:#25D366; color:#08351C; fill:#08351C}
+.act-wa:hover{background:#1FBA5A}
+.act-tel{background:var(--surface-2); color:var(--ink); border-color:var(--line-2)}
+.act-tel:hover{border-color:var(--ink-3)}
+.act-web{background:var(--blue-bg); color:var(--blue); border-color:transparent}
+.act-web:hover{filter:brightness(.96)}
+
+.note{font-size:13.5px; color:var(--ink-2); background:var(--surface-2); border-left:3px solid var(--line-2); padding:9px 13px; border-radius:0 7px 7px 0; margin-top:14px}
+.note b{color:var(--ink)}
+
+table{width:100%; border-collapse:collapse; font-size:14.5px}
+.tw{overflow-x:auto; background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow)}
+th{text-align:left; font-family:"JetBrains Mono",monospace; font-size:10.5px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); padding:11px 14px; border-bottom:1px solid var(--line); background:var(--surface-2); white-space:nowrap}
+td{padding:11px 14px; border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:none}
+td.n{font-family:"JetBrains Mono",monospace; font-size:13.5px; white-space:nowrap}
+td a{color:var(--green); font-weight:600; text-decoration:none}
+td a:hover{text-decoration:underline}
+
+.rules{background:var(--surface); border:1px solid var(--line); border-radius:13px; padding:20px; box-shadow:var(--shadow)}
+.rule{display:flex; gap:12px; padding:11px 0; border-bottom:1px dashed var(--line)}
+.rule:last-child{border-bottom:none; padding-bottom:0}
+.rule .ic{font-size:19px; flex:none; line-height:1.3}
+.rule h4{margin:0 0 2px; font-family:"Archivo",sans-serif; font-size:15.5px; font-weight:700}
+.rule p{margin:0; font-size:14px; color:var(--ink-2)}
+
+footer{text-align:center; padding:34px 18px 46px; color:var(--ink-3); font-size:13px}
+.toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(80px); background:var(--ink); color:var(--bg); padding:11px 20px; border-radius:24px; font-size:14px; font-weight:600; box-shadow:var(--shadow-lg); opacity:0; transition:transform .28s cubic-bezier(.2,.8,.3,1), opacity .28s; z-index:50}
+.toast.show{transform:translateX(-50%) translateY(0); opacity:1}
+
+@media (max-width:560px){
+  .chead{padding:14px}
+  .cbody{padding:14px}
+  .act{flex:1; justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+:focus-visible{outline:2.5px solid var(--amber); outline-offset:2px; border-radius:4px}
+</style>
+
+<div class="top"><div class="wrap">
+  <h1>Plan de envíos</h1>
+  <div class="sub">من أرسل، وماذا يقول، وبأي رابط — كل شيء في مكان واحد</div>
+  <div class="meta">
+    <span class="pill hot">2 جاهزان الآن</span>
+    <span class="pill">21 هدفاً في القائمة</span>
+    <span class="pill">Ponteareas</span>
+  </div>
+</div></div>
+
+<div class="wrap">
+
+  <div class="alert">
+    <h3>⚠️ اكتشاف مهم قبل أن ترسل</h3>
+    <p>معظم أرقام العيادات والورش <b>أرضية (تبدأ بـ 986)</b> — وقد لا يكون لها واتساب.<br>
+    <b>الأرقام التي تبدأ بـ 6xx محمولة</b> = واتساب شبه مضمون. <b>ابدأ بها.</b><br>
+    لو قال واتساب "الرقم غير مسجّل" → اتصل هاتفياً بدل ذلك.</p>
+  </div>
+
+  <h2 class="sec">جاهز للإرسال الآن</h2>
+
+  <div class="card" id="c1">
+    <div class="chead">
+      <button class="ck" data-ck="c1" aria-label="Marcar"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></button>
+      <div class="ctitle">
+        <h3>Hermanos Villar</h3>
+        <div class="tags"><span class="tag g">أعلى ثقة</span><span class="tag b">عبر زوجتك</span><span class="tag">آلات زراعية</span></div>
+      </div>
+      <div class="num">01</div>
+    </div>
+    <div class="cbody">
+      <div class="lbl">① رسالة زوجتك (لزوجة صاحب الشركة) <button class="copy" data-copy="m1a">نسخ</button></div>
+      <div class="msg" id="m1a">Oye, mi marido se puso a mirar la web de la empresa y acabó haciendo una maqueta de cómo la haría él 😅
+
+Lleva dos días enseñándomela. ¿Se la puedo pasar a [اسمه] para que me deje en paz? 😄</div>
+
+      <div class="lbl">② رسالتك (بعد موافقتها) <button class="copy" data-copy="m1b">نسخ</button></div>
+      <div class="msg" id="m1b">Hola [اسمه], soy Nasri, el marido de [اسم زوجتك].
+
+Antes de nada — os sigo en Instagram y lo lleváis de lujo. Vi la entrega de los dos Solis y el CLAAS ATOS. Se nota el movimiento que tenéis 👌
+
+Justo por eso os escribo: todo ese trabajo se queda en Instagram y no llega a la web. Y en Ocasión mandáis a la gente a Milanuncios, donde ven a la competencia al lado.
+
+Hice una maqueta funcionando con vuestras máquinas:
+👉 nasriakdoumi5-create.github.io/villar
+
+Pruébalo: cambia el idioma a PT arriba a la derecha y filtra por tipo de máquina 😊
+
+Si te encaja, te lo cuento en 10 minutos cuando te venga bien.</div>
+
+      <div class="acts">
+        <a class="act act-web" href="https://nasriakdoumi5-create.github.io/villar" target="_blank" rel="noopener">🔗 فتح النموذج</a>
+      </div>
+      <div class="note"><b>ترتيب صارم:</b> زوجتك تستأذن أولاً · لا تشرح ولا تتابع · ثم أنت ترسل. <b>الهدف: مكالمة 10 دقائق.</b></div>
+    </div>
+  </div>
+
+  <div class="card" id="c2">
+    <div class="chead">
+      <button class="ck" data-ck="c2" aria-label="Marcar"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></button>
+      <div class="ctitle">
+        <h3>Dododent</h3>
+        <div class="tags"><span class="tag a">قيمة عالية</span><span class="tag r">رقم أرضي</span><span class="tag">عيادة أسنان</span></div>
+      </div>
+      <div class="num">02</div>
+    </div>
+    <div class="cbody">
+      <div class="lbl">رسالة واتساب <button class="copy" data-copy="m2">نسخ</button></div>
+      <div class="msg" id="m2">Buenos días 😊
+
+Soy Nasri, vivo aquí en Ponteareas.
+
+Me dedico a hacer webs para negocios de la zona. Vi que Dododent no tiene web y, como me pareció una pena, preparé una maqueta de cómo podría quedar — sin compromiso ninguno:
+
+👉 nasriakdoumi5-create.github.io/villar/dododent
+
+Lo más útil creo que es lo de pedir cita online, así os quitáis llamadas.
+
+Si le puede interesar al doctor, encantado de enseñárselo en 10 minutos cuando os venga bien.
+
+Un saludo 🙂</div>
+      <div class="acts">
+        <a class="act act-wa" href="https://wa.me/34986640195" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.6.2s-.7.9-.9 1.1c-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5s-.6-1.5-.9-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.2.2 1.9 2.9 4.6 4 1.6.7 2.2.8 3 .6.5-.1 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 00-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1012 2z"/></svg> واتساب</a>
+        <a class="act act-tel" href="tel:+34986640195">📞 986 64 01 95</a>
+        <a class="act act-web" href="https://nasriakdoumi5-create.github.io/villar/dododent" target="_blank" rel="noopener">🔗 النموذج</a>
+      </div>
+      <div class="note"><b>رقم أرضي</b> — لو لم يعمل واتساب، اتصل واسأل عن الطبيب مباشرةً. أفضل وقت: <b>10:00–13:00</b>.</div>
+    </div>
+  </div>
+
+  <h2 class="sec">الأهداف التالية — أرقام محمولة (واتساب مضمون تقريباً)</h2>
+
+  <div class="card">
+    <div class="cbody" style="padding:0">
+      <div class="tw"><table>
+        <thead><tr><th>الشركة</th><th>القطاع</th><th>الرقم</th><th>واتساب</th></tr></thead>
+        <tbody>
+          <tr><td>Carpintería G.I.</td><td>نجارة</td><td class="n">686 989 793</td><td><a href="https://wa.me/34686989793" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>Alfonso Paz López</td><td>نجارة</td><td class="n">696 949 030</td><td><a href="https://wa.me/34696949030" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>Talleres Hermindo</td><td>ورشة</td><td class="n">618 836 033</td><td><a href="https://wa.me/34618836033" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>Doblecardan 4x4</td><td>ورشة</td><td class="n">669 892 724</td><td><a href="https://wa.me/34669892724" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>VFR Performance</td><td>ورشة</td><td class="n">625 016 432</td><td><a href="https://wa.me/34625016432" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>Detail Wash</td><td>ورشة</td><td class="n">649 548 558</td><td><a href="https://wa.me/34649548558" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>Reformas Pías</td><td>إصلاحات</td><td class="n">620 427 899</td><td><a href="https://wa.me/34620427899" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>Construcciones Grefer</td><td>إصلاحات</td><td class="n">661 538 619</td><td><a href="https://wa.me/34661538619" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>Pavinova Pavimentos</td><td>إصلاحات</td><td class="n">667 668 900</td><td><a href="https://wa.me/34667668900" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>Decoraciones Mae</td><td>إصلاحات</td><td class="n">629 955 157</td><td><a href="https://wa.me/34629955157" target="_blank" rel="noopener">فتح ←</a></td></tr>
+          <tr><td>Reformas David</td><td>إصلاحات</td><td class="n">611 366 147</td><td><a href="https://wa.me/34611366147" target="_blank" rel="noopener">فتح ←</a></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="cbody">
+      <div class="lbl">نصّ عام لهؤلاء (بدّل [NEGOCIO]) <button class="copy" data-copy="m3">نسخ</button></div>
+      <div class="msg" id="m3">Buenas 😊
+
+Soy Nasri, vivo aquí en Ponteareas. Hago webs para negocios de la zona.
+
+Vi que [NEGOCIO] no tiene web y me llamó la atención, porque hoy la gente busca todo en el móvil y no os encuentran.
+
+Si te interesa, te preparo una maqueta gratis de cómo quedaría la vuestra — sin compromiso ninguno. Solo dime que sí y te la enseño.
+
+Un saludo 🙂</div>
+      <div class="note"><b>لاحظ الفرق:</b> هنا تعرض بناء النموذج (لا يوجد بعد). لو قال نعم → <b>أخبرني وأبنيه في دقائق</b> → ترسله. <b>هذا يوفّر جهدك</b>: لا تبني إلا لمن أبدى اهتماماً.</div>
+    </div>
+  </div>
+
+  <h2 class="sec">قواعد لا تكسرها</h2>
+
+  <div class="rules">
+    <div class="rule"><span class="ic">⏰</span><div><h4>التوقيت</h4><p>الثلاثاء–الخميس، 10:00–13:00 أو 16:00–19:00. لا مساءً، لا عطلة، لا اثنين.</p></div></div>
+    <div class="rule"><span class="ic">3️⃣</span><div><h4>ثلاثة يومياً كحدّ أقصى</h4><p>تحتاج طاقة لمتابعة من يردّ. الكمّ بلا متابعة = فرص ضائعة.</p></div></div>
+    <div class="rule"><span class="ic">💰</span><div><h4>لا سعر في الرسالة أبداً</h4><p>سألوا؟ → <em>"Depende de lo que necesitéis. ¿Hablamos 10 minutos y te paso presupuesto cerrado?"</em></p></div></div>
+    <div class="rule"><span class="ic">🔁</span><div><h4>متابعة واحدة فقط</h4><p>لم يردّ خلال 5 أيام؟ رسالة قصيرة واحدة، ثم اتركه. الإلحاح يحرق سمعتك في بلدة صغيرة.</p></div></div>
+    <div class="rule"><span class="ic">🚫</span><div><h4>لا تنتقد موقعهم</h4><p>قل <em>"vi que no tenéis web"</em> — ملاحظة. لا <em>"vuestra web está mal"</em> — حكم.</p></div></div>
+    <div class="rule"><span class="ic">🎯</span><div><h4>الهدف مكالمة، لا بيع</h4><p>كل رسالة تنتهي بطلب 10 دقائق. البيع يحدث في الصوت، لا في النصّ.</p></div></div>
+    <div class="rule"><span class="ic">📝</span><div><h4>سجّل كل إرسال</h4><p>في Notion: التاريخ + الردّ. بلا تسجيل ستنسى وتكرّر وتحرج نفسك.</p></div></div>
+  </div>
+
+  <h2 class="sec">بعد أول ردّ</h2>
+  <div class="card"><div class="cbody">
+    <div class="rule" style="padding-top:0"><span class="ic">1️⃣</span><div><h4>في المكالمة: اسأل واستمع</h4><p>كيف يصلكم الزبائن اليوم؟ · ما أكثر ما يضيّع وقتكم؟ · هل يسألكم أحد عن موقع؟ · ما الذي يزعجكم في وضعكم الحالي؟</p></div></div>
+    <div class="rule"><span class="ic">2️⃣</span><div><h4>لا تسعّر في المكالمة</h4><p>قل: <em>"Déjame prepararte una propuesta con precio cerrado y te la paso mañana."</em></p></div></div>
+    <div class="rule"><span class="ic">3️⃣</span><div><h4>ارجع إليّ</h4><p>أخبرني بما سمعت — نبني العرض الرسمي (Presupuesto) بسعره المناسب لما قالوه.</p></div></div>
+  </div></div>
+
+</div>
+
+<footer>ورقة عمل شخصية · Ponteareas 2026<br><span style="font-size:12px">افتحها على جوالك — أزرار النسخ والواتساب تعمل مباشرةً</span></footer>
+
+<div class="toast" id="toast">تم النسخ ✓</div>
+
+<script>
+const toast = document.getElementById('toast');
+let tmr;
+function say(t){ toast.textContent = t; toast.classList.add('show'); clearTimeout(tmr); tmr = setTimeout(()=>toast.classList.remove('show'), 1600); }
+
+document.querySelectorAll('.copy').forEach(b=>{
+  b.addEventListener('click', async ()=>{
+    const el = document.getElementById(b.dataset.copy);
+    const txt = el.textContent;
+    try{
+      await navigator.clipboard.writeText(txt);
+    }catch(e){
+      const ta = document.createElement('textarea');
+      ta.value = txt; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(_){}
+      document.body.removeChild(ta);
+    }
+    const old = b.textContent;
+    b.textContent = 'تم ✓'; b.classList.add('ok');
+    say('تم النسخ ✓');
+    setTimeout(()=>{ b.textContent = old; b.classList.remove('ok'); }, 1800);
+  });
+});
+
+document.querySelectorAll('.ck').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    b.classList.toggle('on');
+    const card = document.getElementById(b.dataset.ck);
+    card.classList.toggle('done', b.classList.contains('on'));
+    if(b.classList.contains('on')) say('تم الإرسال ✓');
+  });
+});
+</script>
